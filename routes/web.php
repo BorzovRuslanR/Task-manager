@@ -88,5 +88,5 @@ Route::patch('/tasks/{task}/edit', function ($task) {
 Route::put('/tasks/{task}/users', function ($task) {
     // Обработчик данных назначения пользователей на задачу $task
 });
-// Делаем вьюшки
+// Делаем
 
