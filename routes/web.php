@@ -1,4 +1,3 @@
-
 <?php
 
 use Illuminate\Support\Facades\Route;
@@ -16,7 +15,7 @@ use Illuminate\Support\Facades\Route;
 
 // 1. Главная страница
 Route::get('/', function () {
-    return view('welcome');
+    return view('index');
 });
 
 // 2. Страница с формой регистрации
@@ -46,13 +45,22 @@ Route::get('/lk', function () {
 
 // 7. Страница со списком задач
 Route::get('/tasks', function () {
-    // Вывод списка задач
-});
+    return view('tasks.list');
+})->name('tasks.list');
 
 // 8. Страница с формой создания задачи
 Route::get('/tasks/create', function () {
     // Вывод формы создания
-});
+    /*
+     * В форме создания задачи должны выводиться поля:
+     * 1) Название задачи
+     * 2) Краткое описание задачи
+     * 3) Полное описание задачи
+     * 4) Приоритет (высокий/обычный)
+     * 5) Фото задачи
+     * */
+    return view('tasks.create');
+})->name('tasks.create');
 
 // 9. Обработчик формы создания задачи
 Route::post('/tasks/create', function () {
@@ -62,7 +70,8 @@ Route::post('/tasks/create', function () {
 // 10. Страница с детальным описанием задачи
 Route::get('/tasks/{task}', function ($task) {
     // Вывод данных задачи $task
-});
+    return view('tasks.show');
+})->name('tasks.show');
 
 // 11. Обработчик удаления задачи
 Route::delete('/tasks/{task}/delete', function ($task) {
@@ -88,5 +97,7 @@ Route::patch('/tasks/{task}/edit', function ($task) {
 Route::put('/tasks/{task}/users', function ($task) {
     // Обработчик данных назначения пользователей на задачу $task
 });
-// Делаем
 
+/*
+ *
+ */
