@@ -6,7 +6,9 @@
     <title>@yield('title', 'Задачник')</title>
 
     @section('styles')
+        @vite(['resources/css/app.css'])
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+
     @show
 
 </head>
@@ -24,7 +26,7 @@
                     <a class="nav-link active" aria-current="page" href="/">Главная</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="{{ route('tasks.list') }}">Задачи</a>
+                    <a class="nav-link active" href="{{ route('tasks.list') }}">Задачи</a>
                 </li>
             </ul>
         </div>

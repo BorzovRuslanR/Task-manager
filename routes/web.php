@@ -86,7 +86,8 @@ Route::patch('/tasks/{task}/status', function ($task) {
 // 13. Страница с формой редактирования задачи
 Route::get('/tasks/{task}/edit', function ($task) {
     // Вывод формы редактирования задачи $task
-});
+    return view('tasks.edit');
+})->name('tasks.edit');
 
 // 14. Обработчик формы редактирования задачи
 Route::patch('/tasks/{task}/edit', function ($task) {
