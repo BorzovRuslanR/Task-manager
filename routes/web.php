@@ -45,7 +45,8 @@ Route::get('/lk', function () {
 
 // 7. Страница со списком задач
 Route::get('/tasks', function () {
-    return view('tasks.list');
+    $tasks = \App\Models\Task::select(['id', 'name', 'preview', 'image'])->get();
+    return view('tasks.list', ['tasks' => $tasks]);
 })->name('tasks.list');
 
 // 8. Страница с формой создания задачи
@@ -68,10 +69,12 @@ Route::post('/tasks/create', function () {
 });
 
 // 10. Страница с детальным описанием задачи
-Route::get('/tasks/{task}', function ($task) {
-    // Вывод данных задачи $task
-    return view('tasks.show');
+
+Route::get('/tasks/{id}', function ($id) {
+    $task = \App\Models\Task::find($id);
+    return view('tasks.show', ['task' => $task]);
 })->name('tasks.show');
+
 
 // 11. Обработчик удаления задачи
 Route::delete('/tasks/{task}/delete', function ($task) {
