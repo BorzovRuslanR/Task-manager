@@ -1,55 +1,24 @@
-/* .row.equal-cols {
-    display: -webkit-flex;
-    display: -ms-flexbox;
-    display: flex;
-    -webkit-flex-wrap: wrap;
-    -ms-flex-wrap: wrap;
-    flex-wrap: wrap;
-}
-
-.row.equal-cols:before,
-.row.equal-cols:after {
-    display: block;
-}
-
-.row.equal-cols > [class*='col-'] {
-    display: -webkit-flex;
-    display: -ms-flexbox;
-    display: flex;
-    -webkit-flex-direction: column;
-    -ms-flex-direction: column;
-    flex-direction: column;
-}
-
-.row.equal-cols > [class*='col-'] > * {
-    -webkit-flex: 1 1 auto;
-    -ms-flex: 1 1 auto;
-    flex: 1 1 auto;
-}
-*/
-
-
 body {
     animation: changeBackground 30s infinite;
-    background-image: url('images/bac1.jpg');
+    background-image: url('images/bac11.jpg');
     background-size: cover;
 }
 
 @keyframes changeBackground {
     0% {
-        background-image: url('images/bac1.jpg');
+        background-image: url('images/bac11.jpg');
     }
     25% {
-        background-image: url('images/bac2.jpg');
+        background-image: url('images/bac12.jpg');
     }
     50% {
-        background-image: url('images/bac3.jpg');
+        background-image: url('images/bac13.jpg');
     }
     75% {
-        background-image: url('images/bac4.jpg');
+        background-image: url('images/bac14.jpg');
     }
     100% {
-        background-image: url('images/bac1.jpg');
+        background-image: url('images/bac15.jpg');
     }
 }
 
@@ -59,6 +28,18 @@ body {
     margin-bottom: 150px;
     padding: 20px;
 }
+
+.createTaskCard {
+    background-color: #1a202c;
+    margin-top: 50px;
+    margin-bottom: 150px;
+    padding: 20px;
+}
+
+.row {
+    margin-top: 50px;
+}
+
 
 .buttonOnShow {
     display: flex;
@@ -134,3 +115,38 @@ body {
     object-fit: cover;
     height: 200px;
 }
+
+.animated-heading {
+    font-size: 100px;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    opacity: 0;
+    animation: animateHeading 4s ease-in-out;
+    animation-fill-mode: forwards;
+}
+
+.animated-heading:hover {
+    color: white;
+    box-shadow: 0 0 0 4px white;
+    transition: box-shadow 0.3s ease-in-out;
+}
+
+@keyframes animateHeading {
+    0% {
+        transform: translate(-50%, -100%);
+        opacity: 0;
+    }
+    20%, 80% {
+        opacity: 1;
+    }
+    100% {
+        transform: translate(-50%, -50%);
+        opacity: 1;
+    }
+}
+
+
+
+

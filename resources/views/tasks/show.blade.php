@@ -1,10 +1,11 @@
 @extends('layouts.main')
 
 @section('content')
-
+    <br>
+    <a href="{{ url()->previous() }}" class="btn btn-dark">Вернуться назад</a>
     <br>
     <br>
-    <h1 class="styleTextOnMain">Задача номер {{$task->id}} Приоритет {{$task->priority}}</h1>
+    <h1 class="styleTextOnMain">Задача номер {{$task->id}} Приоритет {{$task->priority}}<p>Статус: {{ $task->status->name }}</p></h1>
     <br>
     <br>
     <div class="task-block">
@@ -33,7 +34,7 @@
             <div class="col-8">
                 <h4>Изображения к задаче</h4>
                 <div class="image-wrapper">
-                    <img src="{{ $task->image }}" class="img-fluid" alt="Извините к этой задаче нет изображения">
+                    <img src="{{ asset($task->image) }}" class="img-fluid" alt="Извините к этой задаче нет изображения">
                 </div>
             </div>
             <div class="col-12">
@@ -41,9 +42,9 @@
                 <p>{{ $task->preview }}</p>
             </div>
             <div class="buttonOnShow">
-            <a href="#" class="btn btn-primary">Редактировать задачу</a>
+            <a href="{{ route('tasks.edit', ['id' => $task->id]) }}" class="btn btn-primary">Редактировать задачу</a>
             </div>
-    {{--         {{ route('tasks.edit', ['task' => $i]) }}--}}
+
         </div>
     </div>
 
