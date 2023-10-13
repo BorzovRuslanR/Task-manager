@@ -2,7 +2,7 @@
 
 @section('content')
     <br>
-    <a href="{{ url()->previous() }}" class="btn btn-dark">Вернуться назад</a>
+    <a href="{{ route('tasks.list') }}" class="btn btn-dark">Вернуться назад</a>
     <br>
     <br>
     <h1 class="styleTextOnMain">Задача номер {{$task->id}} Приоритет {{$task->priority}}<p>Статус: {{ $task->status->name }}</p></h1>
@@ -44,8 +44,30 @@
             <div class="buttonOnShow">
             <a href="{{ route('tasks.edit', ['id' => $task->id]) }}" class="btn btn-primary">Редактировать задачу</a>
             </div>
+            @if ($task->status_id !== 3)
+            <form method="post" action="{{ route('tasks.coment', ['id' => $task->id]) }}">
+                @csrf
+                @method('patch')
+                <div class="form-group">
+                    <label for="exampleFormControlTextarea1">Оставьте комментарий</label>
+                    <textarea name="coment" class="form-control" id="exampleFormControlTextarea1" rows="3"></textarea>
+                    <br>
+                    <button type="submit" class="btn btn-primary">Добавить комментарий</button>
+                    <br>
+                </div>
+            </form>
 
+
+            @foreach($coments as $coment)
+                <br>
+                <ul class="list-group">
+                    <li class="list-group-item">{{$coment->coment}}</li>
+                </ul>
+
+            @endforeach
+            @endif
         </div>
+
     </div>
 
 
