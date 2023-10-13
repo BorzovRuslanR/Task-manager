@@ -77,9 +77,13 @@ Route::post('/tasks/create', function (\Illuminate\Http\Request $request) {
 // 10. Страница с детальным описанием задачи
 
 Route::get('/tasks/{id}', function ($id) {
-    $task = \App\Models\Task::find($id);
+
     $task = \App\Models\Task::with('status')->find($id);
-    return view('tasks.show', ['task' => $task]);
+    $coments = \App\Models\Coment::select(['coment'])
+        ->where('task_id','=', $id)
+        ->get();
+
+    return view('tasks.show', ['task' => $task, 'coments' => $coments]);
 })->name('tasks.show');
 
 
@@ -133,6 +137,26 @@ Route::patch('/tasks/{id}/edit', function ($id, \Illuminate\Http\Request $reques
 Route::put('/tasks/{task}/users', function ($task) {
     // Обработчик данных назначения пользователей на задачу $task
 });
+
+// 16. Обработчик формы с добавление
+
+
+Route::patch('/tasks/{id}/show', function ($id, \Illuminate\Http\Request $request) {
+    // 1. Считать данные с формы
+    $data = $request->all();
+    // 2. Создать новый комментарий в БД
+    $coment = new \App\Models\Coment();
+    $coment->coment=$data['coment'];
+    $coment->task_id=$id;
+    $coment->save();
+
+
+
+    // 3. Перенаправить на деатльную страницу задачи
+
+    return redirect()->route('tasks.show', ['id' => $id]);
+})->name('tasks.coment');
+
 
 /*
  *

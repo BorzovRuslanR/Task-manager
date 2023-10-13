@@ -11,7 +11,15 @@
         <div class="col-sm-3">
             <div class="card mb-4" style="width: 100%; position: relative;">
                 <img src="{{ asset($task->image) }}" class="card-img-top" alt="...">
-                <div class="status-label bg-danger text-white position-absolute top-0 end-0 p-2">{{ $task->status->name }}</div>
+                <div class="status-label
+            @if ($task->status_id == 1)
+                bg-success
+            @elseif ($task->status_id == 2)
+                bg-warning
+            @elseif ($task->status_id == 3)
+                bg-danger
+            @endif
+            text-white position-absolute top-0 end-0 p-2">{{ $task->status->name }}</div>
                 <div class="card-body">
                     <h5 class="card-title">{{ $task->name }}</h5>
                     <p class="card-text">{{ $task->preview }}</p>
