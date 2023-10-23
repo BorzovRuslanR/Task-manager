@@ -48,6 +48,16 @@ body {
     margin-top: 20px;
     margin-bottom: 50px;
 }
+
+.buttonOnShow a.btn {
+    margin-right: 10px; /* Добавляем отступ между кнопками */
+}
+
+.buttonOnShow button.btn {
+    margin-left: 10px; /* Добавляем отступ между кнопками */
+    min-width: 120px; /* Задаем минимальную ширину кнопки */
+}
+
 .col-sm-3 {
     display: flex;
     align-items: stretch;
@@ -115,6 +125,8 @@ body {
     object-fit: cover;
     height: 200px;
 }
+
+
 
 .animated-heading {
     font-size: 100px;

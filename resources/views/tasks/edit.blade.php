@@ -8,7 +8,7 @@
             <div class="createTaskCard">
                 <h1 class="styleTextOnMain">Создай задачу</h1>
                 <br>
-                <form method="post" action="{{ route('tasks.update', ['id' => $task->id]) }}" enctype="multipart/form-data">
+                <form method="post" action="{{ route('tasks.update', ['task' => $task->id]) }}" enctype="multipart/form-data">
                     @csrf
                     @method('patch')
                     <input name="name" class="form-control" type="text" placeholder="Название задачи" value="{{ $task->name }}" aria-label="default input example">

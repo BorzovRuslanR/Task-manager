@@ -1,5 +1,6 @@
 <?php
 
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -18,146 +19,35 @@ Route::get('/', function () {
     return view('index');
 });
 
-// 2. Страница с формой регистрации
-Route::get('/register', function () {
-    // Вывод страницы с формой регистрации
+
+Route::middleware('auth')->group(function (){
+
+
+    // 6. Страница с личным кабинетом авторизованного пользователя
+    Route::get('/lk', function () {
+        // Вывод персональных данных пользователя
+    });
+
+    // 12. Обработчик смены статуса задачи
+    Route::patch('/tasks/{task}/status', function ($task) {
+        // Обработчик смены статуса
+    });
+
+    // 15. Обработчик назначения пользователей к задаче
+    Route::put('/tasks/{task}/users', function ($task) {
+        // Обработчик данных назначения пользователей на задачу $task
+    });
+
+    // 16. Обработчик формы с добавлением комментариев
+
+    Route::patch('/tasks/{id}/show', [\App\Http\Controllers\ComentController::class, 'store'])->name('tasks.coment');
+
+    // Здесь сосредоточены все 7 CRUD маршрутов для задачи
+
+    Route::resource('tasks', \App\Http\Controllers\TaskController::class);
+
 });
 
-// 3. Обработчик формы регистрации
-Route::post('/register', function () {
-    // Обработчик данных
-});
-
-// 4. Страница с формой авторизации
-Route::get('/login', function () {
-    // Вывод страницы с формой входа в ЛК
-});
-
-// 5. Обработчик формы авторизации
-Route::post('/login', function () {
-    // Обработчик данных
-});
-
-// 6. Страница с личным кабинетом авторизованного пользователя
-Route::get('/lk', function () {
-   // Вывод персональных данных пользователя
-});
-
-// 7. Страница со списком задач
-Route::get('/tasks', function () {
-    $tasks = \App\Models\Task::select(['id', 'name', 'preview', 'image', 'status_id'])
-        ->with('status')
-        ->get();
-    return view('tasks.list', ['tasks' => $tasks]);
-})->name('tasks.list');
-
-// 8. Страница с формой создания задачи
-Route::get('/tasks/create', function () {
-
-    return view('tasks.create');
-})->name('tasks.create');
-
-// 9. Обработчик формы создания задачи
-Route::post('/tasks/create', function (\Illuminate\Http\Request $request) {
-    // 1. Считать данные с формы
-    $data = $request->all();
-    // 2. Записать данные в таблицу БД
-    $task = new \App\Models\Task();
-    $task->name = $data['name'];
-    $task->preview = $data['preview'];
-    $task->text = $data['text'];
-    $task->priority = isset($data['priority']);
-    $task->image = $data['file']->store('img');
-    $task->status_id = 1;
-    $task->save();
-    // 3. Перенаправить на страницу со списком задач
-    return redirect()->route('tasks.list');
-})->name('tasks.store');
-
-// 10. Страница с детальным описанием задачи
-
-Route::get('/tasks/{id}', function ($id) {
-
-    $task = \App\Models\Task::with('status')->find($id);
-    $coments = \App\Models\Coment::select(['coment'])
-        ->where('task_id','=', $id)
-        ->get();
-
-    return view('tasks.show', ['task' => $task, 'coments' => $coments]);
-})->name('tasks.show');
+Auth::routes();
 
 
-// 11. Обработчик удаления задачи
-Route::delete('/tasks/{task}/delete', function ($task) {
-    // Удаление задачи $task
-});
-
-// 12. Обработчик смены статуса задачи
-Route::patch('/tasks/{task}/status', function ($task) {
-    // Обработчик смены статуса задачи $task
-});
-
-// 13. Страница с формой редактирования задачи
-Route::get('/tasks/{id}/edit', function ($id) {
-    $task = \App\Models\Task::find($id);
-    return view('tasks.edit', ['task' => $task]);
-})->name('tasks.edit');
-
-// 14. Обработчик формы редактирования задачи
-Route::patch('/tasks/{id}/edit', function ($id, \Illuminate\Http\Request $request) {
-    // 1. Считать данные с формы
-    $data = $request->all();
-    // 2. Найти задачу по id
-    $task = \App\Models\Task::find($id);
-    // 3. Обновить данные задачи
-    $task->name = $data['name'];
-    $task->preview = $data['preview'];
-    $task->text = $data['text'];
-    $task->priority = $request->has('priority') ? true : false;
-
-    if ($request->hasFile('file')) {
-        $file = $request->file('file');
-
-        // Удаление старого изображения
-        if ($task->image) {
-            Storage::delete($task->image);
-        }
-
-        $filename = $file->store('img');
-        $task->image = $filename;
-    }
-
-    $task->save();
-
-    return redirect()->route('tasks.list', ['id' => $task->id]);
-
-})->name('tasks.update');
-
-// 15. Обработчик назначения пользователей к задаче
-Route::put('/tasks/{task}/users', function ($task) {
-    // Обработчик данных назначения пользователей на задачу $task
-});
-
-// 16. Обработчик формы с добавление
-
-
-Route::patch('/tasks/{id}/show', function ($id, \Illuminate\Http\Request $request) {
-    // 1. Считать данные с формы
-    $data = $request->all();
-    // 2. Создать новый комментарий в БД
-    $coment = new \App\Models\Coment();
-    $coment->coment=$data['coment'];
-    $coment->task_id=$id;
-    $coment->save();
-
-
-
-    // 3. Перенаправить на деатльную страницу задачи
-
-    return redirect()->route('tasks.show', ['id' => $id]);
-})->name('tasks.coment');
-
-
-/*
- *
- */

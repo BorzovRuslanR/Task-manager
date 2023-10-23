@@ -10,6 +10,6 @@ class Coment extends Model
     use HasFactory;
     public function tasks()
     {
-        return $this->belongsTo(Task::class);
+        return $this->belongsTo(Task::class, 'task_id');
     }
 }

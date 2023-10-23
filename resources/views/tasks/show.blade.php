@@ -2,7 +2,7 @@
 
 @section('content')
     <br>
-    <a href="{{ route('tasks.list') }}" class="btn btn-dark">Вернуться назад</a>
+    <a href="{{ route('tasks.index') }}" class="btn btn-dark">Вернуться назад</a>
     <br>
     <br>
     <h1 class="styleTextOnMain">Задача номер {{$task->id}} Приоритет {{$task->priority}}<p>Статус: {{ $task->status->name }}</p></h1>
@@ -42,8 +42,14 @@
                 <p>{{ $task->preview }}</p>
             </div>
             <div class="buttonOnShow">
-            <a href="{{ route('tasks.edit', ['id' => $task->id]) }}" class="btn btn-primary">Редактировать задачу</a>
+            <a href="{{ route('tasks.edit', ['task' => $task->id]) }}" class="btn btn-primary">Редактировать задачу</a>
+                <form method="POST" action="{{ route('tasks.destroy', ['task' => $task->id]) }}" style="display: inline;">
+                    @csrf
+                    @method('DELETE')
+                    <button type="submit" class="btn btn-danger">Удалить задачу</button>
+                </form>
             </div>
+
             @if ($task->status_id !== 3)
             <form method="post" action="{{ route('tasks.coment', ['id' => $task->id]) }}">
                 @csrf
@@ -58,13 +64,17 @@
             </form>
 
 
-            @foreach($coments as $coment)
-                <br>
-                <ul class="list-group">
-                    <li class="list-group-item">{{$coment->coment}}</li>
-                </ul>
 
-            @endforeach
+                <hr>
+
+                <h4>Комментарии:</h4>
+
+                @foreach($coments as $coment)
+                    <ul class="list-group">
+                        <li class="list-group-item">{{$coment->coment}}</li>
+                    </ul>
+                    <br>
+                @endforeach
             @endif
         </div>
 

@@ -15,8 +15,17 @@ class Task extends Model
         return $this->belongsTo(Status::class);
     }
 
-    public function coments()
+    public function coments(): \Illuminate\Database\Eloquent\Relations\HasMany
     {
-        return $this->hasMany(Coment::class);
+        return $this->hasMany(Coment::class, 'task_id');
     }
+
+    public function users()
+    {
+        return $this->belongsToMany(User::class);
+    }
+
+    protected $attributes = [
+        'image' => 'default.jpg',
+    ];
 }
