@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\LkController;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
@@ -24,9 +25,7 @@ Route::middleware('auth')->group(function (){
 
 
     // 6. Страница с личным кабинетом авторизованного пользователя
-    Route::get('/lk', function () {
-        // Вывод персональных данных пользователя
-    });
+    Route::get('/lk', [LKController::class, 'showLK'])->name('lk');
 
     // 12. Обработчик смены статуса задачи
     Route::patch('/tasks/{task}/status', function ($task) {

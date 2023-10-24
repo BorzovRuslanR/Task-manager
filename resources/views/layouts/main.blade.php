@@ -59,7 +59,7 @@
                          document.getElementById('logout-form').submit();">
     Выйти
 </a>
-<a class="dropdown-item">Личный кабинет</a>
+<a href="{{route('lk')}}" class="dropdown-item">Личный кабинет</a>
 
 <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
     @csrf

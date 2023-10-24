@@ -159,6 +159,35 @@ body {
     }
 }
 
+.lk-place {
+    background-color: #f8f9fa;
+    max-width: 500px;
+    padding: 20px;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
+ul.user-info {
+    list-style-type: none;
+    padding: 0;
+    margin: 0;
+}
+
+ul.user-info li {
+    margin-bottom: 10px;
+}
+
+ul.user-info li strong {
+    font-weight: bold;
+}
+
+ul.user-info li:before {
+    content: "•";
+    color: #ff0000;
+    margin-right: 5px;
+}
 
 
 
