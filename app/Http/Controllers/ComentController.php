@@ -2,14 +2,15 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\CommentCreateRequest;
 use Illuminate\Http\Request;
 
 class ComentController extends Controller
 {
-    public function store($id, Request $request)
+    public function store($id, CommentCreateRequest $request)
     {
         // Алгоритм сохранения комментария к задаче
-        $data = $request->all();
+        $data = $request->validated();
         // 2. Создать новый комментарий в БД
         $coment = new \App\Models\Coment();
         $coment->coment=$data['coment'];

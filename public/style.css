@@ -89,7 +89,6 @@ body {
 .row {
     display: flex;
     flex-wrap: wrap;
-    justify-content: space-between;
 }
 
 .row > div {
@@ -189,5 +188,8 @@ ul.user-info li:before {
     margin-right: 5px;
 }
 
+.errorCreateForm {
+    color: red;
+}
 
 

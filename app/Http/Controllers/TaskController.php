@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\TaskCreateRequest;
 use Illuminate\Http\Request;
 use App\Models\Task;
 use Illuminate\Support\Facades\Auth;
@@ -37,10 +38,10 @@ class TaskController extends Controller
     /**
      * Store a newly created resource in storage. Сохраняет новый созданный ресурс в БД.
      */
-    public function store(Request $request)
+    public function store(TaskCreateRequest $request)
     {
         // 1. Считать данные с формы
-        $data = $request->all();
+        $data = $request->validated();
         // 2. Записать данные в таблицу БД
         $task = new \App\Models\Task();
         $task->name = $data['name'];
@@ -84,9 +85,9 @@ class TaskController extends Controller
      */
     public function edit(string $id)
     {
-        $task = Auth::user()->tasks()->find($id);
+        $task = Task::find($id);
 
-        if (!$task || $task->user_id !== Auth::user()->id) {
+        if (Auth::user()->cannot('edit', $task)) {
             abort(403, 'У вас нет прав для редактирования данной задачи');
         }
         /*$task = \App\Models\Task::find($id);*/
@@ -132,7 +133,9 @@ class TaskController extends Controller
     {
         // 1. Найти задачу по id в БД
         $task = Task::findOrFail($id);
-        $task->coments()->delete();
+        // отвязываем юзеров от удаляемой задачи
+        $task->users()->detach();
+
         // 2. Удалить эту задачу из БД
         $task->delete();
         // 3. Редикерт на список задач

@@ -57,6 +57,9 @@
                 <div class="form-group">
                     <label for="exampleFormControlTextarea1">Оставьте комментарий</label>
                     <textarea name="coment" class="form-control" id="exampleFormControlTextarea1" rows="3"></textarea>
+                    @error('coment')
+                    <p class="errorCreateForm">{{ $message }}</p>
+                    @enderror
                     <br>
                     <button type="submit" class="btn btn-primary">Добавить комментарий</button>
                     <br>
