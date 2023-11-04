@@ -6,7 +6,7 @@
     <div class="row justify-content-center">
         <div class="col-md-6">
             <div class="createTaskCard">
-                <h1 class="styleTextOnMain">Создай задачу</h1>
+                <h1 class="styleTextOnMain">Редактирование задачи</h1>
                 <br>
                 <form method="post" action="{{ route('tasks.update', ['task' => $task->id]) }}" enctype="multipart/form-data">
                     @csrf

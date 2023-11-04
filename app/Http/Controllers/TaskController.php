@@ -3,9 +3,11 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\TaskCreateRequest;
+use App\Mail\CreateTaskConf;
 use Illuminate\Http\Request;
 use App\Models\Task;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Storage;
 
 class TaskController extends Controller
@@ -58,6 +60,8 @@ class TaskController extends Controller
 
         // Привязать авторизированного пользователя к задаче
         $task->users()->attach(Auth::id());
+
+        Mail::to(Auth::user())->send(new CreateTaskConf(Auth::user(), $task));
 
         // 3. Перенаправить на страницу со списком задач
         return redirect()->route('tasks.index');
