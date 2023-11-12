@@ -28,4 +28,9 @@ class Task extends Model
     protected $attributes = [
         'image' => 'default.jpg',
     ];
+
+    public function tags()
+    {
+        return $this->belongsToMany(Tag::class);
+    }
 }

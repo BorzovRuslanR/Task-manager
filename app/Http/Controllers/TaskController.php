@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\TaskCreateRequest;
 use App\Mail\CreateTaskConf;
+use App\Models\Tag;
 use Illuminate\Http\Request;
 use App\Models\Task;
 use Illuminate\Support\Facades\Auth;
@@ -76,12 +77,14 @@ class TaskController extends Controller
         $coments = \App\Models\Coment::select(['coment'])
             ->where('task_id','=', $id)
             ->get();
+
+        $tags = Tag::all(); // Получение всех тегов из базы данных
+
         if(Auth::user()->can('show', $task)) {
-            return view('tasks.show', ['task' => $task, 'coments' => $coments]);
+            return view('tasks.show', ['task' => $task, 'coments' => $coments, 'tags' => $tags]);
         } else {
             abort(403, 'Нет прав для просмотра этой задачи');
         }
-
     }
 
     /**
@@ -139,6 +142,8 @@ class TaskController extends Controller
         $task = Task::findOrFail($id);
         // отвязываем юзеров от удаляемой задачи
         $task->users()->detach();
+        // Удаляем связанные комментарии
+        $task->coments()->delete();
 
         // 2. Удалить эту задачу из БД
         $task->delete();
@@ -146,5 +151,16 @@ class TaskController extends Controller
 
         // Удаление задачи $task
         return redirect()->route('tasks.index');
+    }
+
+
+
+    public function attachTag(Request $request, Task $task)
+    {
+        $tagId = $request->input('tag');
+        $tag = Tag::findOrFail($tagId);
+        $task->tags()->attach($tag);
+
+        return redirect()->route('tasks.show', $task)->with('success', 'Тег успешно добавлен к задаче.');
     }
 }

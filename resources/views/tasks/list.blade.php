@@ -4,6 +4,7 @@
     <h1 class="mb-4">
         <p class="styleTextOnMain">Список задач</p>
         <a class="btn btn-primary" href="{{ route('tasks.create') }}">Добавить задачу</a>
+        <a class="btn btn-primary" href="{{ route('tags.create') }}">Создать тэг</a>
     </h1>
 
     <div class="row">

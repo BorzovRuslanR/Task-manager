@@ -31,6 +31,11 @@
                     <a class="nav-link active" href="{{ route('tasks.index') }}">Задачи</a>
                 </li>
                 @endauth
+                @auth
+                    <li class="nav-item">
+                        <a class="nav-link active" href="{{ route('tags.index') }}">Теги</a>
+                    </li>
+                @endauth
             </ul>
 
             <ul class="navbar-nav ms-auto">

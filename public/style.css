@@ -2,6 +2,11 @@ body {
     animation: changeBackground 30s infinite;
     background-image: url('images/bac11.jpg');
     background-size: cover;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    padding: 0;
+    margin: 0;
+    height: 100vh;
 }
 
 @keyframes changeBackground {
@@ -36,9 +41,15 @@ body {
     padding: 20px;
 }
 
-.row {
-    margin-top: 50px;
+
+.card {
+    width: 100%;
 }
+
+
+/*.row {*/
+/*    margin-top: 50px;*/
+/*}*/
 
 
 .buttonOnShow {
@@ -58,15 +69,15 @@ body {
     min-width: 120px; /* Задаем минимальную ширину кнопки */
 }
 
-.col-sm-3 {
-    display: flex;
-    align-items: stretch;
-}
+/*.col-sm-3 {*/
+/*    display: flex;*/
+/*    align-items: stretch;*/
+/*}*/
 
-.card mb-4 {
-    height: 100px;
-    flex: 1;
-}
+/*.card mb-4 {*/
+/*    height: 100px;*/
+/*    flex: 1;*/
+/*}*/
 
 .styleTextOnMain {
     color: #e2e8f0;
@@ -86,15 +97,15 @@ body {
     object-fit: contain;
 }
 
-.row {
-    display: flex;
-    flex-wrap: wrap;
-}
+/*.row {*/
+/*    display: flex;*/
+/*    flex-wrap: wrap;*/
+/*}*/
 
-.row > div {
-    flex-basis: 100%;
-    margin-bottom: 20px;
-}
+/*.row > div {*/
+/*    flex-basis: 100%;*/
+/*    margin-bottom: 20px;*/
+/*}*/
 
 @media (min-width: 576px) {
     .row > div {
@@ -108,16 +119,17 @@ body {
     }
 }
 
-.equal-cols {
-    display: flex;
-    flex-wrap: wrap;
-}
+/*.equal-cols {*/
+/*    display: flex;*/
+/*    flex-wrap: wrap;*/
+/*}*/
 
 .card-body {
     display: flex;
     flex-direction: column;
     justify-content: space-between;
     height: 100%;
+    width: 100%;
 }
 
 .card-img-top {
@@ -192,4 +204,101 @@ ul.user-info li:before {
     color: red;
 }
 
+@media (max-width: 768px) {
+    .styleTextOnMain {
+        text-align: center;
+    }
 
+    .animated-heading {
+        font-size: 50px; /* Изменяем размер шрифта для мобильных устройств */
+        position: relative;
+        margin-top: 50px;
+        opacity: 0;
+        animation: animateHeading 4s ease-in-out;
+        animation-fill-mode: forwards;
+    }
+
+    /* Удаление :hover стилей, если они не требуются на мобильных устройствах */
+
+    @keyframes animateHeading {
+        0% {
+            transform: translateY(-100%);
+            opacity: 0;
+        }
+        20%, 80% {
+            opacity: 1;
+        }
+        100% {
+            transform: translateY(-50%);
+            opacity: 1;
+        }
+    }
+}
+
+@media (max-width: 480px) {
+    .mobile-heading {
+        font-size: 40px;
+        max-width: 100%;
+        padding: 0 10px; /* Пример значения отступов */
+    }
+}
+
+
+
+/* Стили для тего  */
+
+.tag-container {
+    position: relative;
+    display: inline-block;
+    margin: 10px;
+}
+
+.tag {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 10px;
+    color: #fff;
+    font-weight: bold;
+    width: 200px;
+    height: 80px;
+    border-radius: 10px;
+    flex-shrink: 0;
+    background-color: #4a5568;
+    position: relative;
+    transition: background-color 0.3s ease;
+    cursor: pointer;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.tag:hover {
+    background-color: #5a6b7a;
+}
+
+.tag-description {
+    position: absolute;
+    top: 0;
+    left: 100%;
+    width: auto;
+    max-width: 300px;
+    padding: 10px;
+    background-color: #fff;
+    color: #000;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.3s ease, visibility 0.3s ease;
+    white-space: normal;
+}
+
+.tag-container:hover .tag-description {
+    opacity: 1;
+    visibility: visible;
+}
+
+.backGr {
+    background-color: #5a6b7a;
+    padding: 30px;
+}
